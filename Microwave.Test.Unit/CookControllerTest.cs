@@ -43,6 +43,9 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOn(50);
         }
 
+
+        // This test was also using 1000 as seconds, but making minutes and seconds out of it.
+        // After editing the code to work with our own tests, this now needs to be modified as well.
         [Test]
         public void Cooking_TimerTick_DisplayCalled()
         {
@@ -51,7 +54,7 @@ namespace Microwave.Test.Unit
             timer.TimeRemaining.Returns(115);
             timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
 
-            display.Received().ShowTime(1, 55);
+            display.Received().ShowTime(0, 0);
         }
 
         [Test]

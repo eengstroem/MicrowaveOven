@@ -8,7 +8,7 @@ namespace Microwave.Test.Integration
 {
     public class IntegrationTest3
     {
-        private PowerTube powertube;
+        private IPowerTube powertube;
         private IOutput output;
         [SetUp]
         public void Setup()

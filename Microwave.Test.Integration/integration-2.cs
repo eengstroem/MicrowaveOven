@@ -8,7 +8,7 @@ namespace Microwave.Test.Integration
 {
     public class IntegrationTest2
     {
-        private Display display;
+        private IDisplay display;
         private IOutput output;
         [SetUp]
         public void Setup()

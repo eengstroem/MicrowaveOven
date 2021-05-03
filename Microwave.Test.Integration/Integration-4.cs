@@ -92,6 +92,22 @@ namespace Microwave.Test.Integration
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
         [Test]
+        public void TurnOff_ActiveCooking_WritesSomething()
+        {
+            // Arrange
+            StringWriter output = new();
+            cookController.StartCooking(50, 1000);
+            Console.SetOut(output);
+
+
+            //Act
+            cookController.Stop();
+
+            //Assert
+            string expectedOutput = "PowerTube turned off\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+        [Test]
         public void TimerExpired_EventRaised_TurnOffCooking()
         {
             // Arrange
@@ -108,16 +124,12 @@ namespace Microwave.Test.Integration
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
         
-        [TestCase(2000,1100, "00:01")]
+        [TestCase(2000, 1100, "00:01")]
         [TestCase(4000, 1100, "00:03")]
         public void OnTimerTick_SecondPassed_EventRaised(int time, int sleep, string expected)
         {
             // Arrange
-            cookController.Stop();
             StringWriter output = new();
-
-            StringBuilder sb = output.GetStringBuilder();
-            sb.Remove(0, sb.Length);
 
             //Act
             cookController.StartCooking(50, time);
@@ -127,10 +139,13 @@ namespace Microwave.Test.Integration
             //Assert
             string expectedOutput = $"Display shows: {expected}\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
-
         }
 
-       
+       [TearDown]
+       public void TearDown()
+        {
+            cookController.Stop();
+        }
 
 
     }

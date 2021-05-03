@@ -8,7 +8,7 @@ namespace Microwave.Test.Integration
 {
     public class IntegrationTest1
     {
-        private Light light;
+        private ILight light;
         private IOutput output;
         [SetUp]
         public void Setup()
