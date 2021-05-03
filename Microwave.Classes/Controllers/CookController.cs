@@ -64,8 +64,8 @@ namespace Microwave.Classes.Controllers
         public void OnTimerTick(object sender, EventArgs e)
         {
             if (isCooking)
-            {
-                int remaining = myTimer.TimeRemaining;
+            {   //Divided by 1000 to convert to seconds
+                int remaining = myTimer.TimeRemaining/1000;
                 myDisplay.ShowTime(remaining / 60, remaining % 60);
             }
         }
