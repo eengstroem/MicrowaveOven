@@ -1,0 +1,8 @@
+@startuml
+class Display {
+    + Display(output:IOutput)
+    + ShowTime(min:int, sec:int) : void
+    + ShowPower(power:int) : void
+    + Clear() : void
+}
+@enduml

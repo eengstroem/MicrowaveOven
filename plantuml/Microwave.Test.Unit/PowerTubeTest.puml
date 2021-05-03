@@ -1,0 +1,10 @@
+@startuml
+class PowerTubeTest {
+    + Setup() : void
+    + TurnOn_WasOffCorrectPower_CorrectOutput(power:int) : void
+    + TurnOn_WasOffOutOfRangePower_ThrowsException(power:int) : void
+    + TurnOff_WasOn_CorrectOutput() : void
+    + TurnOff_WasOff_NoOutput() : void
+    + TurnOn_WasOn_ThrowsException() : void
+}
+@enduml

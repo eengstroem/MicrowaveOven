@@ -1,0 +1,9 @@
+@startuml
+class LightTest {
+    + Setup() : void
+    + TurnOn_WasOff_CorrectOutput() : void
+    + TurnOff_WasOn_CorrectOutput() : void
+    + TurnOn_WasOn_CorrectOutput() : void
+    + TurnOff_WasOff_CorrectOutput() : void
+}
+@enduml

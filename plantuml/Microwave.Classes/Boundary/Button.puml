@@ -1,0 +1,6 @@
+@startuml
+class Button {
+    +  <<event>> Pressed : EventHandler 
+    + Press() : void
+}
+@enduml

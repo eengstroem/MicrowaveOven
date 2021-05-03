@@ -1,0 +1,15 @@
+@startuml
+class TimerTest {
+    + Setup() : void
+    + Start_TimerTick_ShortEnough() : void
+    + Start_TimerTick_LongEnough() : void
+    + Start_TimerExpires_ShortEnough() : void
+    + Start_TimerExpires_LongEnough() : void
+    + Start_TimerTick_CorrectNumber() : void
+    + Stop_NotStarted_NoThrow() : void
+    + Stop_Started_NoTickTriggered() : void
+    + Stop_Started_NoExpiredTriggered() : void
+    + Stop_StartedOneTick_NoExpiredTriggered() : void
+    + Tick_Started_TimeRemainingCorrect(ticks:int) : void
+}
+@enduml

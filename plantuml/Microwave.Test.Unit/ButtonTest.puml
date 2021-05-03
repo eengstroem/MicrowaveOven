@@ -1,0 +1,7 @@
+@startuml
+class ButtonTest {
+    + Setup() : void
+    + Press_NoSubscribers_NoThrow() : void
+    + Press_1subscriber_IsNotified() : void
+}
+@enduml

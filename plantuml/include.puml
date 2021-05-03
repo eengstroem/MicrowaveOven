@@ -1,0 +1,87 @@
+@startuml
+!include .\\Microwave.Classes\Boundary\Button.puml
+!include .\\Microwave.Classes\Boundary\Display.puml
+!include .\\Microwave.Classes\Boundary\Door.puml
+!include .\\Microwave.Classes\Boundary\Light.puml
+!include .\\Microwave.Classes\Boundary\Output.puml
+!include .\\Microwave.Classes\Boundary\PowerTube.puml
+!include .\\Microwave.Classes\Boundary\Timer.puml
+!include .\\Microwave.Classes\Controllers\CookController.puml
+!include .\\Microwave.Classes\Controllers\UserInterface.puml
+!include .\\Microwave.Classes\Interfaces\IButton.puml
+!include .\\Microwave.Classes\Interfaces\ICookController.puml
+!include .\\Microwave.Classes\Interfaces\IDisplay.puml
+!include .\\Microwave.Classes\Interfaces\IDoor.puml
+!include .\\Microwave.Classes\Interfaces\ILight.puml
+!include .\\Microwave.Classes\Interfaces\IOutput.puml
+!include .\\Microwave.Classes\Interfaces\IPowerTube.puml
+!include .\\Microwave.Classes\Interfaces\ITimer.puml
+!include .\\Microwave.Classes\Interfaces\IUserInterface.puml
+
+enum States {
+    READY,
+    SETPOWER,
+    SETTIME,
+    COOKING,
+    DOOROPEN,
+}
+
+IButton <|-- Button
+
+IDisplay <|-- Display
+Display --> "output" IOutput
+
+IDoor <|-- Door
+
+ILight <|-- Light
+Light --> "output" IOutput
+
+IOutput <|-- Output
+
+IPowerTube <|-- PowerTube
+PowerTube --> "output" IOutput
+
+ITimer <|-- Timer
+
+ICookController <|-- CookController
+CookController --> "timer" ITimer
+CookController --> "Display" IDisplay
+CookController --> "PowerTube" IPowerTube
+CookController --> "UI" IUserInterface
+
+IUserInterface <|-- UserInterface
+UserInterface +-- States
+UserInterface --> "PowerButton" IButton
+UserInterface --> "TimeButton" IButton
+UserInterface --> "StartCancelButton" IButton
+UserInterface --> "Door" IDoor
+UserInterface --> IDisplay
+UserInterface --> ILight
+UserInterface --> ICookController
+@enduml
+
+@startuml
+!include .\\Microwave.Classes\Boundary\Button.puml
+!include .\\Microwave.Classes\Boundary\Display.puml
+!include .\\Microwave.Classes\Boundary\Door.puml
+!include .\\Microwave.Classes\Boundary\Light.puml
+!include .\\Microwave.Classes\Boundary\Output.puml
+!include .\\Microwave.Classes\Boundary\PowerTube.puml
+!include .\\Microwave.Classes\Boundary\Timer.puml
+!include .\\Microwave.Classes\Controllers\CookController.puml
+!include .\\Microwave.Classes\Controllers\UserInterface.puml
+
+
+Light "1"--> Output
+Display "2"--> Output
+PowerTube "3"--> Output
+CookController "4"--> Display
+CookController "4"--> PowerTube
+CookController "4"--> Timer
+UserInterface "5"--> Light
+UserInterface "5"--> Display
+UserInterface "5"--> CookController
+UserInterface "6"--> Door
+UserInterface "7"--> Button
+
+@enduml

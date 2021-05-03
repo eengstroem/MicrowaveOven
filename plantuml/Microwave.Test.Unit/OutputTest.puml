@@ -1,0 +1,6 @@
+@startuml
+class OutputTest {
+    + Setup() : void
+    + OutputLineCorrect() : void
+}
+@enduml

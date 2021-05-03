@@ -1,0 +1,10 @@
+@startuml
+class Timer {
+    + TimeRemaining : int <<get>>
+    +  <<event>> Expired : EventHandler 
+    +  <<event>> TimerTick : EventHandler 
+    + Timer()
+    + Start(time:int) : void
+    + Stop() : void
+}
+@enduml

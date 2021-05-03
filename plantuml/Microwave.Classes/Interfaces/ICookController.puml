@@ -1,0 +1,6 @@
+@startuml
+interface ICookController {
+    StartCooking(power:int, time:int) : void
+    Stop() : void
+}
+@enduml

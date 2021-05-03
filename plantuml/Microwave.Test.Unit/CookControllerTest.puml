@@ -1,0 +1,11 @@
+@startuml
+class CookControllerTest {
+    + Setup() : void
+    + StartCooking_ValidParameters_TimerStarted() : void
+    + StartCooking_ValidParameters_PowerTubeStarted() : void
+    + Cooking_TimerTick_DisplayCalled() : void
+    + Cooking_TimerExpired_PowerTubeOff() : void
+    + Cooking_TimerExpired_UICalled() : void
+    + Cooking_Stop_PowerTubeOff() : void
+}
+@enduml

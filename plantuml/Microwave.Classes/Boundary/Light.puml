@@ -1,0 +1,7 @@
+@startuml
+class Light {
+    + Light(output:IOutput)
+    + TurnOn() : void
+    + TurnOff() : void
+}
+@enduml

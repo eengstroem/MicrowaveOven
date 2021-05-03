@@ -1,0 +1,10 @@
+@startuml
+class CookController {
+    + CookController(timer:ITimer, display:IDisplay, powerTube:IPowerTube, ui:IUserInterface)
+    + CookController(timer:ITimer, display:IDisplay, powerTube:IPowerTube)
+    + StartCooking(power:int, time:int) : void
+    + Stop() : void
+    + OnTimerExpired(sender:object, e:EventArgs) : void
+    + OnTimerTick(sender:object, e:EventArgs) : void
+}
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class DisplayTest {
+    + Setup() : void
+    + ShowTime_ZeroMinuteZeroSeconds_CorrectOutput() : void
+    + ShowTime_ZeroMinuteSomeSecond_CorrectOutput() : void
+    + ShowTime_SomeMinuteZeroSecond_CorrectOutput() : void
+    + ShowTime_SomeMinuteSomeSecond_CorrectOutput() : void
+    + ShowPower_Zero_CorrectOutput() : void
+    + ShowPower_NotZero_CorrectOutput() : void
+    + Clear_CorrectOutput() : void
+}
+@enduml

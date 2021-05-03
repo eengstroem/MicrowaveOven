@@ -1,0 +1,9 @@
+@startuml
+interface ITimer {
+    TimeRemaining : int <<get>>
+     <<event>> Expired : EventHandler 
+     <<event>> TimerTick : EventHandler 
+    Start(time:int) : void
+    Stop() : void
+}
+@enduml

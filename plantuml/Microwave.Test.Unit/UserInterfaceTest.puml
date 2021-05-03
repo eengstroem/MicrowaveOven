@@ -1,0 +1,28 @@
+@startuml
+class UserInterfaceTest {
+    + Setup() : void
+    + Ready_DoorOpen_LightOn() : void
+    + DoorOpen_DoorClose_LightOff() : void
+    + Ready_DoorOpenClose_Ready_PowerIs50() : void
+    + Ready_2PowerButton_PowerIs100() : void
+    + Ready_14PowerButton_PowerIs700() : void
+    + Ready_15PowerButton_PowerIs50Again() : void
+    + SetPower_CancelButton_DisplayCleared() : void
+    + SetPower_DoorOpened_DisplayCleared() : void
+    + SetPower_DoorOpened_LightOn() : void
+    + SetPower_TimeButton_TimeIs1() : void
+    + SetPower_2TimeButton_TimeIs2() : void
+    + SetTime_StartButton_CookerIsCalled() : void
+    + SetTime_DoorOpened_DisplayCleared() : void
+    + SetTime_DoorOpened_LightOn() : void
+    + Ready_PowerAndTime_CookerIsCalledCorrectly() : void
+    + Ready_FullPower_CookerIsCalledCorrectly() : void
+    + SetTime_StartButton_LightIsCalled() : void
+    + Cooking_CookingIsDone_LightOff() : void
+    + Cooking_CookingIsDone_ClearDisplay() : void
+    + Cooking_DoorIsOpened_CookerCalled() : void
+    + Cooking_DoorIsOpened_DisplayCleared() : void
+    + Cooking_CancelButton_CookerCalled() : void
+    + Cooking_CancelButton_LightCalled() : void
+}
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class DoorTest {
+    + Setup() : void
+    + Open_NoSubscribers_NoThrow() : void
+    + Open_1subscriber_IsNotified() : void
+    + Close_NoSubscribers_NoThrow() : void
+    + Close_1subscriber_IsNotified() : void
+}
+@enduml
