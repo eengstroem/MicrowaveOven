@@ -146,7 +146,7 @@ namespace Microwave.Test.Integration
             string expectedOutput = "Light is turned on\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
             powertube.Received().TurnOn(50);
-            timer.Received().Start(60);
+            timer.Received().Start(60000);
         }
 
         [Test]
