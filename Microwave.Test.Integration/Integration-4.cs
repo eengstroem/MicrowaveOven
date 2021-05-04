@@ -30,9 +30,11 @@ namespace Microwave.Test.Integration
             cookController = new CookController(timer, display, powertube);
         }
 
-        [TestCase(1, 1000)]
+        // We need to change the test from testing range from 1-100, to 50-700 instead with the new powertube changes.
+
         [TestCase(50, 1000)]
-        [TestCase(100, 1000)]
+        [TestCase(350, 1000)]
+        [TestCase(700, 1000)]
         public void TestStartCooking_StartsCooking(int power, int time)
         {
             //Arrange 
@@ -48,8 +50,10 @@ namespace Microwave.Test.Integration
             Assert.That(timer.TimeRemaining, Is.EqualTo(time));
         }
 
-        [TestCase(0, 1000)]
-        [TestCase(101, 1000)]
+        // We need to change the test from testing 0 and 101, to 49 and 701 instead with the new powertube changes.
+
+        [TestCase(49, 1000)]
+        [TestCase(701, 1000)]
         public void TestStartCooking_InvalidPower_ThrowsException(int power, int time)
         {
             //Arrange 

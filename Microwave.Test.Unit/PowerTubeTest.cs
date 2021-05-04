@@ -18,21 +18,24 @@ namespace Microwave.Test.Unit
             output = Substitute.For<IOutput>();
             uut = new PowerTube(output);
         }
+        // We need to change the test from testing range 1-100, to 50 and 700 instead with the new powertube changes.
 
-        [TestCase(1)]
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(350)]
+        [TestCase(700)]
         public void TurnOn_WasOffCorrectPower_CorrectOutput(int power)
         {
             uut.TurnOn(power);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
+        // We need to change the test from testing range between -5 and 150, to -5 and 1000 instead with the new powertube changes.
+
         [TestCase(-5)]
-        [TestCase(-1)]
         [TestCase(0)]
-        [TestCase(101)]
-        [TestCase(150)]
+        [TestCase(49)]
+        [TestCase(750)]
+        [TestCase(1000)]
         public void TurnOn_WasOffOutOfRangePower_ThrowsException(int power)
         {
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));

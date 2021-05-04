@@ -48,9 +48,11 @@ namespace Microwave.Test.Integration
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
 
-        [TestCase(1)]
+        // We need to change the test from testing range 1-100, to 50-700 instead with the new powertube changes.
+
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(350)]
+        [TestCase(700)]
         public void TurnOn1_100_InactivePowerTube_TurnsOn(int power)
         {
             // Arrange
@@ -64,8 +66,12 @@ namespace Microwave.Test.Integration
             string expectedOutput = $"PowerTube works with {power}\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
-        [TestCase(0)]
-        [TestCase(101)]
+
+
+        // We need to change the test from testing 0 and 101, to 49 and 701 instead with the new powertube changes.
+        
+        [TestCase(49)]
+        [TestCase(701)]
         public void TurnOn0_101_InactivePowerTube_ThrowsError(int power)
         {
             // Arrange
