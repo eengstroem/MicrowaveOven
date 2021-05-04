@@ -68,10 +68,13 @@ namespace Microwave.Test.Integration
         }
 
 
-        // We need to change the test from testing 0 and 101, to 49 and 701 instead with the new powertube changes.
-        
+        // We need to change the test from testing range between -5 and 150, to -5 and 1000 instead with the new powertube changes.
+
+        [TestCase(-5)]
+        [TestCase(0)]
         [TestCase(49)]
-        [TestCase(701)]
+        [TestCase(750)]
+        [TestCase(1000)]
         public void TurnOn0_101_InactivePowerTube_ThrowsError(int power)
         {
             // Arrange
