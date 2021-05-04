@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using NSubstitute;
+using System.Threading;
 
 namespace Microwave.Test.Integration
 {
@@ -109,6 +110,158 @@ namespace Microwave.Test.Integration
 
             //Assert
             string expectedOutput = "Display shows: 02:00\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+
+        [Test]
+        public void OnStartCancelPressed_StateSetPower_Clear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+
+            //Assert
+            string expectedOutput = "Display cleared\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+
+        [Test]
+        public void OnStartCancelPressed_StateSetTime_Clear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timebutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned on\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+            powertube.Received().TurnOn(50);
+            timer.Received().Start(60);
+        }
+
+        [Test]
+        public void OnStartCancelPressed_StateCooking_Stops()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timebutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned off\r\nDisplay cleared\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+            powertube.Received().TurnOff();
+            timer.Received().Stop();
+        }
+        [Test]
+        public void OnDoorOpened_StateReady_LightOn()
+        {
+            // Arrange
+            StringWriter output = new();
+            Console.SetOut(output);
+
+            //Act
+            door.Opened += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned on\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+        [Test]
+        public void OnDoorOpened_StateSetPower_LightOnDisplayClear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            door.Opened += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned on\r\nDisplay cleared\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+        [Test]
+        public void OnDoorOpened_StateSetTime_LightOnDisplayClear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timebutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            door.Opened += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned on\r\nDisplay cleared\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+        [Test]
+        public void OnDoorOpened_StateCooking_CookerStopDisplayClear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timebutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            door.Opened += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Display cleared\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+            powertube.Received().TurnOff();
+            timer.Received().Stop();
+        }
+        [Test]
+        public void OnDoorClosed_StateDoorOpen_LightOff()
+        {
+            // Arrange
+            StringWriter output = new();
+            door.Opened += Raise.EventWith(this, EventArgs.Empty); 
+            Console.SetOut(output);
+
+            //Act
+            door.Closed += Raise.EventWith(this, EventArgs.Empty);
+
+            //Assert
+            string expectedOutput = "Light is turned off\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+        [Test]
+        public void CookingIsDone_StateCooking_LightOffDisplayClear()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timebutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startcancelbutton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            Console.SetOut(output);
+
+            //Act
+            UI.CookingIsDone();
+
+            //Assert
+            string expectedOutput = "Display cleared\r\nLight is turned off\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
     }
