@@ -88,7 +88,8 @@ namespace Microwave.Classes.Controllers
                     break;
                 case States.SETTIME:
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel, time*60);
+                    // Added *1000 to turn the time variable into miliseconds, as the timer component works with that precision.
+                    myCooker.StartCooking(powerLevel, time*60*1000);
                     myState = States.COOKING;
                     break;
                 case States.COOKING:
