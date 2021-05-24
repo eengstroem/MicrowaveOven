@@ -31,11 +31,11 @@ namespace Microwave.Test.Integration
             powerbutton = new Button();
             timebutton = new Button();
             startcancelbutton = new Button();
+            powertube = new PowerTube(output);
+            timer = new Microwave.Classes.Boundary.Timer();
 
             // Timer, PowerTube and door are only substituted to construct other classes.
             // Each module have been tested in another integration step.
-            timer = Substitute.For<ITimer>();
-            powertube = Substitute.For<IPowerTube>();
             door = Substitute.For<IDoor>();
 
             cookController = new CookController(timer, display, powertube);
@@ -140,10 +140,8 @@ namespace Microwave.Test.Integration
             startcancelbutton.Press();
 
             //Assert
-            string expectedOutput = "Light is turned on\r\n";
+            string expectedOutput = "Light is turned on\r\nPowerTube works with 50\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
-            powertube.Received().TurnOn(50);
-            timer.Received().Start(60000);
         }
 
         [Test]
@@ -160,10 +158,45 @@ namespace Microwave.Test.Integration
             startcancelbutton.Press();
 
             //Assert
-            string expectedOutput = "Light is turned off\r\nDisplay cleared\r\n";
+            string expectedOutput = "PowerTube turned off\r\nLight is turned off\r\nDisplay cleared\r\n";
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
-            powertube.Received().TurnOff();
-            timer.Received().Stop();
+        }
+
+        [Test]
+        public void StartCancelPressedEvent_WaitTimerTick_ShowsTimePassed()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Press();
+            timebutton.Press();
+            startcancelbutton.Press();
+            Console.SetOut(output);
+
+            //Act
+            Thread.Sleep(1100);
+
+            //Assert
+            string expectedOutput = "Display shows: 00:59\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+
+        [Test]
+        public void TestPowerButton_ThreePresses_AcceptableInput()
+        {
+            // Arrange
+            StringWriter output = new();
+            powerbutton.Press();
+            powerbutton.Press();
+            powerbutton.Press();
+            timebutton.Press();
+            Console.SetOut(output);
+
+            //Act
+            startcancelbutton.Press();
+
+            //Assert
+            string expectedOutput = "Light is turned on\r\nPowerTube works with 150\r\n";
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
     }
 }
